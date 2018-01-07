@@ -1,12 +1,10 @@
 #gameBlock {
-    background-color: rgb(219, 194, 241);
     width: 500px;
-    height: 350px;
+    height: 305px;
     border-radius: 10px;
 }
 
 #gameStatus {
-    background-color: lavenderblush;
     width: 195px;
     height: 305px;
     border-radius: 10px;
@@ -14,31 +12,14 @@
 }
 
 #playerTurn {
-    width: inherit;
-    height: 70px;
-    border-radius: 10px;
+    height: 50px;
     background-color: black;
-    font-size: 20px;
-    font-family: monospace;
-}
-#playerTurn:hover {
-    cursor:pointer;
-    width: inherit;
-    height: 70px;
-    border-radius: 10px;
-}
-#playerTurn:active {
-    cursor:pointer;
-    width: inherit;
-    height: 70px;
-    border-radius: 10px;
-    background-color: darkslategrey;
 }
 
 #playerIcon {
     float: left;
     position: relative;
-    margin-top: 25px;
+    margin-top: 15px;
     margin-left: 52px;
     width: 20px;
     height: 20px;
@@ -49,18 +30,44 @@
     position: relative;
     color: white;
     text-align: center;
-    line-height: 70px;
+    line-height: 50px;
 }
 
 #winHistory {
     width: inherit;
-    height: 235px;
-    background-color: gray;
+    height: 210px;
+    background-color: #000000e3;
     border-radius: 10px;
 }
 
+#restartGameButton {
+    height: 45px;
+    background-color: #02441fe8;
+    text-align: center;
+    color: navajowhite;
+    line-height: 45px;
+}
+
+#restartGameButton:hover {
+    cursor: pointer;
+    width: inherit;
+    color: white;
+}
+
+#restartGameButton:hover {
+    cursor:pointer;
+    width: inherit;
+    border-radius: 10px;
+}
+#restartGameButton:active {
+    cursor:pointer;
+    width: inherit;
+    border-radius: 10px;
+    background-color: darkslategrey;
+}
+
 #game {
-    background-color: rebeccapurple;
+    background-color: #401a67;
     border-spacing: 5px;
     border-radius: 10px;
 }
@@ -68,14 +75,14 @@
 .gameSquares {
     width: 93px;
     height: 93px;
-    background-color: blueviolet;
+    background-color: #601c9e;
     border-radius: 10px;
 }
 
 .selectedGameSquares {
     width: 93px;
     height: 93px;
-    background-color: blueviolet;
+    background-color: #601c9e;
     border-radius: 10px;
 }
 
@@ -89,4 +96,11 @@
 .inGameStyle {
     float: left;
     margin-left: 16px;
+}
+
+.buttonStyle {
+    width: inherit;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: monospace;
 }

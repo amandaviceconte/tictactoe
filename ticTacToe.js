@@ -5,14 +5,14 @@ let winner;
 let canPlay = true;
 let totalSelectedSquares = 0;
 
-let game = [
+const game = [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0]
 ];
 
-let createSquares = () => {
-    var trNumber = 1;
+const createSquares = () => {
+    let trNumber = 1;
     for (let i = 0; i < matrixOrder; i++) {
         for (let j = 0; j < matrixOrder; j++) {
             $(`#tr${trNumber}`).append(`<td id="${i}${j}" class="gameSquares"></td>`);
@@ -21,7 +21,7 @@ let createSquares = () => {
     }
 }
 
-let clickOnSquare = () => {
+const clickOnSquare = () => {
     $('.gameSquares').on('click', event => {
         let target = $(event.target);
         let iMatrixElem = Number(target.attr('id').slice(0, 1));
@@ -47,7 +47,7 @@ let clickOnSquare = () => {
     })
 }
 
-let isSelected = eventTarget => {
+const isSelected = eventTarget => {
     if (eventTarget.attr('class') == 'selectedGameSquares') {
         return true;
     } else {
@@ -55,23 +55,23 @@ let isSelected = eventTarget => {
     }
 }
 
-let checkRowWin = () => {
+const checkRowWin = () => {
     for (i = 0; i < game.length; i++) {
         if (game[i][0] == game[i][1] && game[i][0] == game[i][2] && game[i][0] != 0) {
-            $(`#${i}0`).css('background-color', 'gold');
-            $(`#${i}1`).css('background-color', 'gold');
-            $(`#${i}2`).css('background-color', 'gold');
+            $(`#${i}0`).css('background-color', '#fff59b');
+            $(`#${i}1`).css('background-color', '#fff59b');
+            $(`#${i}2`).css('background-color', '#fff59b');
             return true;
         }
     }
 }
 
-let checkCollumWin = () => {
+const checkCollumWin = () => {
     for (let i = 0; i < game.length; i++) {
         if (game[0][i] == game[1][i] && game[0][i] == game[2][i] && game[0][i] != 0) {
-            $(`#0${i}`).css('background-color', 'gold');
-            $(`#1${i}`).css('background-color', 'gold');
-            $(`#2${i}`).css('background-color', 'gold');
+            $(`#0${i}`).css('background-color', '#fff59b');
+            $(`#1${i}`).css('background-color', '#fff59b');
+            $(`#2${i}`).css('background-color', '#fff59b');
             return true;
         }
     }
@@ -79,14 +79,14 @@ let checkCollumWin = () => {
 
 const checkDiagonalWin = () => {
     if ((game[0][0] == game[1][1] && game[0][0] == game[2][2]) && game[1][1] != 0) {
-        $(`#00`).css('background-color', 'gold');
-        $(`#11`).css('background-color', 'gold');
-        $(`#22`).css('background-color', 'gold');
+        $(`#00`).css('background-color', '#fff59b');
+        $(`#11`).css('background-color', '#fff59b');
+        $(`#22`).css('background-color', '#fff59b');
         return true;
     } else if ((game[0][2] == game[1][1] && game[0][2] == game[2][0]) && game[1][1] != 0) {
-        $(`#02`).css('background-color', 'gold');
-        $(`#11`).css('background-color', 'gold');
-        $(`#20`).css('background-color', 'gold');
+        $(`#02`).css('background-color', '#fff59b');
+        $(`#11`).css('background-color', '#fff59b');
+        $(`#20`).css('background-color', '#fff59b');
         return true
     }
 }
@@ -97,7 +97,7 @@ const checkDrawCondition = () => {
     }
 }
 
-let checkWinCondition = () => {
+const checkWinCondition = () => {
     if (checkRowWin() || checkCollumWin() || checkDiagonalWin()) {
         canPlay = false;
         console.log(`Player ${winner.toUpperCase()} wins!`);
@@ -110,16 +110,18 @@ let checkWinCondition = () => {
 
 const addMessageElements = () => {
     // this >>> $('#playerIcon').length != 0 <<< checks if id exists
+    let iconDiv = $('<div id="playerIcon"></div>');
+    let textDiv = $('<div id="playerTurnText" class="inGameStyle"></div>');
     if ($('#playerIcon').length != 0) {
         $('#playerIcon').empty();
     } else {
-        let iconDiv = $('<div id="playerIcon"></div>');
+        $('#playerTurn').empty();
         $('#playerTurn').append(iconDiv);
+        $('#playerTurn').append(textDiv);
     }
     if ($('#playerTurnText').length != 0) {
         $('#playerTurnText').empty();
     } else {
-        let textDiv = $('<div id="playerTurnText" class="inGameStyle"></div>');
         $('#playerTurn').append(textDiv);
     }
 }
@@ -153,18 +155,43 @@ const drawMessage = () => {
     $('#playerTurnText').text(`It's a tie!`);
 }
 
-// const resetGame = () => {
-//     let gameStatus = $('#playerTurnText');
-//     totalSelectedSquares = 0;
-//     gameStatus.empty();
-//     let newGameMessage = $('<p>New Game</p>').css('margin', '0');
-//     gameStatus.append(newGameMessage);
-// }
+const cleanTableRows = () => {
+    for(let i = 1; i <= game.length; i++) {
+        $(`#tr${i}`).empty();
+    }
+}
 
-let startGame = () => {
+const resetGameArray = () => {
+    for(let i = 0; i < game.length; i++) {
+        game[i] = [0, 0, 0];
+    }
+}
+
+// To restart the game this have to happen:
+    // totalSelectedSquares goes back to 0
+    // All classes "selectedGameSquares" are removed
+const restartGame = () => {
+    totalSelectedSquares = 0;
+    canPlay = true;
+    cleanTableRows();
+    resetGameArray();
     createSquares();
     clickOnSquare();
     showPlayerTurn();
+}
+
+const restartGameButton = () => {
+    $('#restartGameButton').on('click', event => {
+        restartGame();
+        console.log('Restart game');
+    })
+}
+
+const startGame = () => {
+    createSquares();
+    clickOnSquare();
+    showPlayerTurn();
+    restartGameButton();
 }
 
 startGame();
