@@ -4,6 +4,8 @@ let playerTurn = 'o';
 let winner;
 let canPlay = true;
 let totalSelectedSquares = 0;
+let xScore = 0;
+let oScore = 0;
 
 const game = [
     [0, 0, 0],
@@ -97,10 +99,23 @@ const checkDrawCondition = () => {
     }
 }
 
+const setWinScore = () => {
+    if(winner == 'o') {
+        oScore++;
+        $('#oScore').empty();
+        $('#oScore').text(oScore);
+    } else {
+        xScore++;
+        $('#xScore').empty();
+        $('#xScore').text(xScore);
+    }
+}
+
 const checkWinCondition = () => {
     if (checkRowWin() || checkCollumWin() || checkDiagonalWin()) {
         canPlay = false;
-        console.log(`Player ${winner.toUpperCase()} wins!`);
+        console.log(`Player ${winner} wins!`);
+        setWinScore();
         winnerMessage();
     } else if (checkDrawCondition()) {
         console.log(`It's a draw!`);

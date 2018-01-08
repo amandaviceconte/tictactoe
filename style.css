@@ -33,11 +33,52 @@
     line-height: 50px;
 }
 
-#winHistory {
+#history {
     width: inherit;
     height: 210px;
     background-color: #000000e3;
     border-radius: 10px;
+}
+
+#score {
+    height: 70px;
+    border: solid 2px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#xScore {
+    background: url(images/smallX.png);
+    background-repeat: no-repeat;
+    background-position-y: center;
+    width: 85px;
+    border-right: solid 1px black;
+}
+
+#oScore {
+    background: url(images/smallO.png);
+    background-repeat: no-repeat;
+    background-position-y: center;
+    width: 85px;
+}
+
+.score {
+    float: left;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    color: white;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+#winsAndTies {
+    height: 132px;
+    border: solid 2px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 #restartGameButton {
