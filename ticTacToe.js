@@ -6,6 +6,7 @@ let canPlay = true;
 let totalSelectedSquares = 0;
 let xScore = 0;
 let oScore = 0;
+let historyMsgCount = 0;
 
 const game = [
     [0, 0, 0],
@@ -117,9 +118,11 @@ const checkWinCondition = () => {
         console.log(`Player ${winner} wins!`);
         setWinScore();
         winnerMessage();
+        addToHistory();
     } else if (checkDrawCondition()) {
         console.log(`It's a draw!`);
         drawMessage();
+        addToHistory();
     }
 }
 
@@ -146,21 +149,13 @@ const showPlayerTurn = () => {
     let iconId = $('#playerIcon');
     let textId = $('#playerTurnText')
     textId.text(' turn');
-    if (playerTurn == 'o') {
-        iconId.css('background', 'url("images/smallO.png"');
-    } else {
-        iconId.css('background', 'url("images/smallX.png"');
-    }
+    iconId.css('background', `url('images/small${playerTurn.toUpperCase()}.png')`);
 }
 
 const winnerMessage = () => {
     addMessageElements();
-    $('#playerTurnText').append(' wins! ');
-    if (winner == 'o') {
-        $('#playerIcon').css('background', 'url("images/smallO.png"');
-    } else {
-        $('#playerIcon').css('background', 'url("images/smallX.png"');
-    }
+    $('#playerTurnText').append('wins!');
+    $('#playerIcon').css('background', `url('images/small${winner.toUpperCase()}.png')`); 
 }
 
 const drawMessage = () => {
@@ -168,6 +163,22 @@ const drawMessage = () => {
     $('#playerIcon').remove();
     $('#playerTurnText').removeClass('inGameStyle');
     $('#playerTurnText').text(`It's a tie!`);
+}
+
+const addToHistory = () => {
+    $('#winsAndTies').append(`<p id="p${historyMsgCount}" class="historyMessages"></p>`);
+    let histMsg = $(`#p${historyMsgCount}`);
+    if(!canPlay) {
+        histMsg.text(` wins!!`);
+        histMsg.css('background', `url('images/small${winner.toUpperCase()}.png')`);
+        histMsg.css('background-repeat', 'no-repeat');
+        historyMsgCount++; 
+    } else {
+        histMsg.text(`It's a tie!`);
+        histMsg.css('color', 'white');
+        historyMsgCount++;
+        
+    }
 }
 
 const cleanTableRows = () => {
